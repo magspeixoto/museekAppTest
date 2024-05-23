@@ -31,12 +31,7 @@ class DatabaseSeeder extends Seeder
             'description'=> 'hello world',
         ]);
 
-        Brand::factory(5)->create([
-            'name' => 'Test User',
-        ]);
-        Category::factory(5)->create([
-            'name' => 'Test User',
-        ]);
+        
         
 
         
