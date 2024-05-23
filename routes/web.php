@@ -8,7 +8,6 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\PasswordCreationController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\UserController;
 use App\Mail\ContactedMessage;
 use App\Models\Category;
@@ -94,8 +93,6 @@ Route::get('/categories', function () {
     return response()->json($categories);
 });
 
-Route::get('/create-product-with-image', [ProductImageController::class, 'createProductWithImage']);
-
 //CRUD BRANDS
 Route::get('/brand/index', [BrandController::class, 'index'])->name('brand.index')->middleware('auth');
 Route::get('/brand/create', [BrandController::class, 'create'])->name('brand.create')->middleware('auth');
@@ -124,7 +121,6 @@ Route::delete('/product/delete/{product}', [ProductController::class, 'destroy']
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show')->middleware('auth');
 
 //CRUD USERS
-Route::middleware('admin')->group(function () {
 Route::get('/user/index', [UserController::class, 'index'])->name('user.index')->middleware('auth');
 Route::get('/user/create', [UserController::class, 'create'])->name('user.create')->middleware('auth');
 Route::post('/user', [UserController::class, 'store'])->middleware('auth');
@@ -132,4 +128,3 @@ Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edi
 Route::put('/user/update/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
 Route::delete('/user/delete/{user}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('auth');
 Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show')->middleware('auth');
-});

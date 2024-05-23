@@ -24,13 +24,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
+    public function order():BelongsTo{
+        return $this->belongsTo(Order::class, 'order_id');
     }
    
-    public function images()
-    {
-        return $this->belongsToMany(Image::class, 'product_images');
-    }
+    public function images():HasMany{
+       return $this->hasMany(Product::class, 'image_id');
+   }
 }

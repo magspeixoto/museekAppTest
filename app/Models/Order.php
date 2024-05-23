@@ -16,12 +16,7 @@ class Order extends Model
         'contact_email'
     ];
 
-    /* public function orders():HasMany{
+    public function orders():HasMany{
         return $this->hasMany(Product::class, 'order_id');
-    } */
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
     }
 }
-
