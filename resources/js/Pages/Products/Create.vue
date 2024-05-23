@@ -33,23 +33,23 @@
                 </div>
                 <div class="col-span-2 flex justify-center mb-2 mt-2">
                     <label for="category">Choose Category</label>
-                    <select id="category" v-model="form.category_id">
+                    <select id="category" v-model="form.category">
                         <option v-for="category in categories" :key="category.id" :value="category.id">
                             {{ category.name }}
                         </option>
-                        <div v-if="form.errors.category_id" class="input-error ml-5 mt-5 px-5 py-3 w-96 border border-gray-600 rounded">
-                        {{ form.errors.category_id }}
+                        <div v-if="form.errors.category" class="input-error ml-5 mt-5 px-5 py-3 w-96 border border-gray-600 rounded">
+                        {{ form.errors.category }}
                     </div>
                     </select>
                 </div>
                 <div class="col-span-2 flex justify-center mb-2 mt-2">
                     <label for="brand">Brand</label>
-                    <select id="brand" v-model="form.brand_id">
+                    <select id="brand" v-model="form.brand">
                         <option v-for="brand in brands" :key="brand.id" :value="brand.id">
                             {{ brand.name }}
                         </option>
-                        <div v-if="form.errors.brand_id" class="input-error mt-5 ml-5 px-5 py-3 w-96 border border-gray-600 rounded">
-                        {{ form.errors.brand_id }}
+                        <div v-if="form.errors.brand" class="input-error mt-5 ml-5 px-5 py-3 w-96 border border-gray-600 rounded">
+                        {{ form.errors.brand }}
                     </div>
                     </select>
                 </div>
@@ -78,8 +78,8 @@ export default {
             description: '',
             price: '',
             image: '',
-            category_id: '',
-            brand_id: '',
+            category: '',
+            brand: '',
         })
 
         const submit = () => {

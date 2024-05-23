@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(
                 Product::class,
                 'category'
-            )->constrained('categories');
+            )->constrained('categories')->default(1);
         });
     }
 

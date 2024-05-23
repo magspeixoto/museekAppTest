@@ -24,13 +24,18 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-        Product::factory(20)->create([
+        Product::factory()->create([
             'name' => 'Test Product',
             'image' => 'fqerfqe',
             'price' => '1200',
             'description'=> 'hello world',
-            
-            
+        ]);
+
+        Brand::factory(5)->create([
+            'name' => 'Test User',
+        ]);
+        Category::factory(5)->create([
+            'name' => 'Test User',
         ]);
         
 
