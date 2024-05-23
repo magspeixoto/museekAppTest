@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->foreignIdFor(
                 Product::class,
-                'brand_id'
-            )->nullable()->constrained('brands');
+                'brand'
+            )->constrained('brands');
         });
     }
 
@@ -28,8 +28,8 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->dropForeignIdFor(
                 Product::class,
-                'brand_id'
-            )->nullable()->constrained('brands');
+                'brand'
+            )->constrained('brands');
         });
     }
 };

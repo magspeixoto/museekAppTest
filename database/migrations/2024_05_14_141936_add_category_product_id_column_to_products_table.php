@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->foreignIdFor(
                 Product::class,
-                'category_id'
-            )->nullable()->constrained('categories');
+                'category'
+            )->constrained('categories');
         });
     }
 
@@ -29,8 +29,8 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->dropForeignIdFor(
                 Product::class,
-                'category_id'
-            )->nullable()->constrained('categories');
+                'category'
+            )->constrained('categories');
         });
     }
 };

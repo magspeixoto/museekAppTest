@@ -18,17 +18,17 @@ class Product extends Model
         'description',
     ];
     public function category():BelongsTo{
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category');
     }
     public function brand():BelongsTo{
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Brand::class, 'brand');
     }
 
     public function order():BelongsTo{
-        return $this->belongsTo(Order::class, 'order_id');
+        return $this->belongsTo(Order::class, 'order');
     }
    
     public function images():HasMany{
-       return $this->hasMany(Product::class, 'image_id');
+       return $this->hasMany(Product::class, 'image');
    }
 }

@@ -24,7 +24,7 @@ class ProductController extends Controller
         /* $products = Product::where('category_id', $category)->get();
         return Inertia::render('Index/Index2', [
         'products' => $products, */
-        $products = Product::with('category')->where('category_id', $category)->get();
+        $products = Product::with('category')->where('category', $category)->get();
         return Inertia::render('Index/Index2', [
             'products' => $products,
         ]);
