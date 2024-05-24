@@ -9,7 +9,6 @@
                     <ApplicationMark class="block h-9 w-auto" />
                     </Link>
                 <div class="bg-green text-white" v-if="flashSuccess">{{flashSuccess}}</div>
-
                 <!-- Navigation Links -->
                 <div class=" space-x-8 sm:-my-px sm:ms-10 sm:flex justify-between">
                     <NavLink class="ml-80 text-white" :href="`/index`" :active="route().current('login')">
