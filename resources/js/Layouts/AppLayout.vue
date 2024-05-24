@@ -28,6 +28,7 @@
                         <div class="justify-end">Login</div>
                     </NavLink>
                     
+                    
                     <NavLink v-if="auth.user" as="button" @click="logout" class="ml-20">
                         Logout
                     </NavLink>
