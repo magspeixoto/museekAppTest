@@ -20,7 +20,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Laravel\Jetstream\Http\Controllers\Inertia\UserProfileController;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Index/Index', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
