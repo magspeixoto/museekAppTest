@@ -17,6 +17,7 @@ class ProductController extends Controller
             'Products/Index',
             [
                 'products' => Product::all(),
+                
             ]
             );
     }
