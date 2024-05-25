@@ -1,7 +1,7 @@
 <template>
     <AppLayout>
 
-    <div class="justify-between mx-20 p-40 text-gray">
+    <div class="grid grid-rows justify-between mx-20 p-40 text-gray">
         <h1>Hello, {{ user.name }} </h1>
         
         <div class="flex my-20 gap-6 items-center">

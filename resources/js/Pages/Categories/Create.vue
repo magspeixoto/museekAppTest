@@ -30,7 +30,7 @@
                     <div class="flex justify-center">
                         <button type="submit"
                             class="btn-primary mb-80 px-5 py-3 mt-5 w-96 bg-orange-300 justify-center">Create
-                            product</button>
+                            category</button>
                     </div>
                 </form>
             </div>
