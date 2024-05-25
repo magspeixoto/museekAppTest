@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\PasswordCreationController;
@@ -119,6 +120,9 @@ Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name(
 Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('product.update')->middleware('auth');
 Route::delete('/product/delete/{product}', [ProductController::class, 'destroy'])->name('product.destroy')->middleware('auth');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show')->middleware('auth');
+
+
+Route::post('/upload', [ImageController::class, 'upload'])->name('upload');
 
 //CRUD USERS
 Route::get('/user/index', [UserController::class, 'index'])->name('user.index')->middleware('auth');

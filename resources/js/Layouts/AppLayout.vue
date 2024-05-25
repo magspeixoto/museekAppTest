@@ -41,7 +41,7 @@
     </div></div>
     <slot></slot>
         
-    <div class="absolute inset-x-0 bottom-0 bg-gray-900 mx-auto px-4 sm:px-6 lg:px-9 mx-80 my-30 mt-30 p-20 flex justify-center items-center bg-gray-900 text-white ">
+    <div class="absolute inset-x-0 bottom-0 bg-gray-900 mx-auto px-4 sm:px-6 lg:px-9 mx-80 my-30 mt-30 p-10 flex justify-center items-center text-white ">
         
         <footer class="">All rights reserved to @Museek2024 </footer>
     </div>

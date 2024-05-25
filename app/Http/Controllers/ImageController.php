@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    /* public function upload(Request $request)
+    public function upload(Request $request)
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -20,5 +20,5 @@ class ImageController extends Controller
         // Image::create(['path' => '/images/'.$imageName]);
 
         return redirect()->back()->with('success', 'Image uploaded successfully.');
-    } */
+    }
 }
