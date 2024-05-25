@@ -1,7 +1,7 @@
 <template>
     <AppLayout>
     <div class="flex justify-center">
-        <div class="block justify-center items-center mt-20 mb-0 col-span-2">
+        <div class="justify-center items-center col-span-2">
                 <Link class="p-5 bg-orange-300 rounded" :href="`/product/index`">Back</Link>
                 <form @submit.prevent="form.post('/product')"
                 class="flex-column justify-center items-center">
@@ -9,7 +9,7 @@
                         <label class="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
                         <input v-model="form.name" type="text"
                             class="input w-96 border border-gray-600 rounded items-center" />
-                        <div v-if="form.errors.name" class="input-error">
+                        <div v-if="form.errors.name" class="text-red-500">
                             {{ form.errors.name }}
                         </div>
                     </div>
@@ -17,7 +17,7 @@
                         <label class="block text-sm font-medium leading-6 text-gray-900">Product image </label>
                         <input v-model="form.image" type="text"
                             class="input w-96 border border-gray-600 rounded items-center" />
-                        <div v-if="form.errors.image" class="input-error">
+                        <div v-if="form.errors.image" class="text-red-500">
                             {{ form.errors.image }}
                         </div>
                     </div>
@@ -25,24 +25,16 @@
                         <label class="block text-sm font-medium leading-6 text-gray-900">Product price </label>
                         <input v-model="form.price" type="text"
                             class="input w-96 border border-gray-600 rounded items-center" />
-                        <div v-if="form.errors.price" class="input-error">
+                        <div v-if="form.errors.price" class="text-red-500">
                             {{ form.errors.price }}
                         </div>
                     </div>
-
+                    
                     <div class="items-center col-span-2 justify-center mt-5 ">
                         <label class="block text-sm font-medium leading-6 text-gray-900">Product description </label>
                         <input v-model="form.description" type="text"
                             class="input w-96 border border-gray-600 rounded items-center" />
-                        <div v-if="form.errors.description" class="input-error">
-                            {{ form.errors.description }}
-                        </div>
-                    </div>
-                    <div class="items-center col-span-2 justify-center mt-5 ">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Product description </label>
-                        <input v-model="form.description" type="text"
-                            class="input w-96 border border-gray-600 rounded items-center" />
-                        <div v-if="form.errors.description" class="input-error">
+                        <div v-if="form.errors.description" class="text-red-500">
                             {{ form.errors.description }}
                         </div>
                     </div>
