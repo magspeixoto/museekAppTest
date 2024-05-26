@@ -2,7 +2,6 @@
 <AppLayout>
     <div class="flex justify-center">
         <div class="block justify-center items-center mt-20 mb-0 col-span-2">
-                <Link class="p-5 bg-orange-300 rounded" :href="`/product/index`">Back</Link>
                 <form @submit.prevent="form.post('/brand')"
                 class="flex-column justify-center items-center">
                 <div class="items-center col-span-2 justify-center mt-5">

@@ -17,7 +17,7 @@ class ProductController extends Controller
         return inertia(
             'Products/Index',
             [
-                'products' => Product::all(),
+                'products' => Product::orderByDesc('created_at'),
 
             ]
         );
@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
         // Fetch the category by its ID
         $category = Category::find($categoryId);
-        $products = Product::with('mainImage')->where('category', $categoryId)->get()->map(function ($product) {
+        $products = Product::with('mainImage')->where('category', $categoryId)->paginate(4)->map(function ($product) {
             return [
                 'id' => $product->id,
                 'name' => $product->name,
@@ -43,6 +43,7 @@ class ProductController extends Controller
             'products' => $products,
         ]);
     }
+
     public function show(Product $product)
     {
         $product->load('mainImage'); // Ensure the main image relationship is loaded
