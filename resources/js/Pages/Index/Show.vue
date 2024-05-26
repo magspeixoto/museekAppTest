@@ -1,6 +1,6 @@
 <template>
     <AppLayout>
-        <div class="mx-80 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div class="mt-20 mx-80 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             <div class="group relative">
                 <div
                     class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-500 lg:aspect-none group-hover:opacity-75 lg:h-80">
@@ -74,6 +74,8 @@
     const props = defineProps({
         product: Object,
     });
+
+    console.log(props.product)
     
     const contacting = ref(false)
 

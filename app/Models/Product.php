@@ -18,18 +18,33 @@ class Product extends Model
         'brand',
         'category'
     ];
-    public function category():BelongsTo{
+    public function category(): BelongsTo
+    {
         return $this->belongsTo(Category::class, 'category');
     }
-    public function brand():BelongsTo{
+    public function brand(): BelongsTo
+    {
         return $this->belongsTo(Brand::class, 'brand');
     }
 
-    public function order():BelongsTo{
+    public function order(): BelongsTo
+    {
         return $this->belongsTo(Order::class, 'product');
     }
-   
-    public function images():HasMany{
-       return $this->hasMany(Image::class, 'image');
-   }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function mainImage()
+    {
+        return $this->hasOne(Image::class)->where('main', true);
+    }
+
+    public function getMainImageUrlAttribute()
+    {
+        $mainImage = $this->mainImage;
+        return $mainImage ? asset('storage/' . $mainImage->imageURL) : null;
+    }
 }

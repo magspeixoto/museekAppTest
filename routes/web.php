@@ -86,9 +86,6 @@ Route::get('/admin/password/reset', [AdminController::class, 'showResetForm'])
 Route::post('/admin/password/reset', [AdminController::class, 'sendResetLink'])
 ->name('admin.password.email');
 
-Route::post('/password/update/{user}', [PasswordCreationController::class, 'update'])
-    ->name('password.update');
-
 Route::get('/myaccount', [MyAccountController::class, 'index'])->middleware('auth');
 
 Route::get('/index', [IndexController::class, 'index']);
@@ -122,6 +119,7 @@ Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name(
 Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('product.update')->middleware('auth');
 Route::delete('/product/delete/{product}', [ProductController::class, 'destroy'])->name('product.destroy')->middleware('auth');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show')->middleware('auth');
+Route::post('/product/upload-image/{product}', [ProductController::class, 'uploadImage'])->name('product.uploadImage')->middleware('auth');
 
 
 Route::post('/upload', [ImageController::class, 'upload'])->name('upload');

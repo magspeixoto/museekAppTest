@@ -13,10 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->foreignIdFor(
-                Product::class,
-                'product_id'
-            )->constrained('products');
+            if (!Schema::hasColumn('orders', 'product_id')) {
+                $table->unsignedBigInteger('product_id')->nullable();
+            }
         });
     }
 
@@ -26,10 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropForeignIdFor(
-                Product::class,
-                'product_id'
-            )->constrained('products');
+            $table->dropColumn('product_id');
         });
     }
 };
