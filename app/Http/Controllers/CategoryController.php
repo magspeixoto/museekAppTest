@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
@@ -40,8 +41,11 @@ class CategoryController extends Controller
         ])
         );
 
+        // Invalidate the cache
+        Cache::forget('categories.all');
+
         // Optionally, you can return a response or redirect
-        return redirect()->route('category.index')->with('success', 'Brand was created!');
+        return redirect()->route('category.index')->with('success', 'Category was created!');
 }
 
     public function edit(Category $category)
@@ -58,15 +62,21 @@ class CategoryController extends Controller
                 'name' => 'required|min:0|max:200'])
         );
 
+        // Invalidate the cache
+        Cache::forget('categories.all');
+
         return redirect()->route('category.index')
-            ->with('success', 'Brand was updated!');
+            ->with('success', 'Category was updated!');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
 
+        // Invalidate the cache
+        Cache::forget('categories.all');
+
         return redirect()->route('category.index')
-            ->with('success', 'Brand was deleted!');
+            ->with('success', 'Category was deleted!');
     }
 }

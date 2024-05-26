@@ -19,11 +19,19 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Laravel\Jetstream\Http\Controllers\Inertia\UserProfileController;
+use Illuminate\Support\Facades\Cache;
 
 Route::get('/', function () {
+    $cacheKey = 'categories.all';
+    $cacheDuration = 60; // Cache for 60 minutes
+
+    $categories = Cache::remember($cacheKey, $cacheDuration, function () {
+        return Category::all();
+    });
+
     return Inertia::render('Index/Index', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+        'canRegister' => Route::has('register')        
     ]);
 });
 
@@ -87,12 +95,6 @@ Route::get('/index', [IndexController::class, 'index']);
 Route::get('/products/{product}', [IndexController::class, 'show']);
 
 Route::get('/category/{category}/products', [ProductController::class, 'index2'])->name('category.products');
-
-Route::get('/categories', function () {
-    $categories = Category::all(); 
-
-    return response()->json($categories);
-});
 
 //CRUD BRANDS
 Route::get('/brand/index', [BrandController::class, 'index'])->name('brand.index')->middleware('auth');

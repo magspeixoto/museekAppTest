@@ -4,11 +4,15 @@
         <!-- Seu menu aqui -->
         <!-- Conteúdo adicional do menu -->
 
+        <div v-if="!products.length" class="h-20 flex justify-center border-s">
+            <h3 class="mt-auto">Não existem produtos para esta categoria.</h3>
+        </div>
+
         <!-- Produtos da categoria -->
         <div v-if="products.length">
             <div class="bg-white">
                 <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-                    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Produtos por categoria:</h2>
+                    <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{category.name}}</h2>
                     <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                         <Link :href="`/products/${product.id}`" v-for="product in products" :key="product.id" class="group relative">
                             <div
@@ -36,13 +40,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Pagination from '@/Components/Pagination.vue';
 
 const props = defineProps({
     products: Object,
+    category: Object
 })
 
 </script>

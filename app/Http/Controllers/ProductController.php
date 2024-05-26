@@ -21,12 +21,12 @@ class ProductController extends Controller
             ]
             );
     }
-    public function index2 ($category){
-        /* $products = Product::where('category_id', $category)->get();
+    public function index2 ($categoryId){    
+        // Fetch the category by its ID
+        $category = Category::find($categoryId);     
+        $products = Product::with('category')->where('category', $categoryId)->get();
         return Inertia::render('Index/Index2', [
-        'products' => $products, */
-        $products = Product::with('category')->where('category', $category)->get();
-        return Inertia::render('Index/Index2', [
+            'category' => $category,
             'products' => $products,
         ]);
     }

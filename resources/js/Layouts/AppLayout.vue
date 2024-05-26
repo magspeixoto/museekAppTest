@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col h-screen justify-between">
-        <div class="h-10 bg-gray-900 p-20 w-auto">            
+    <div class="flex flex-col min-h-screen justify-between">
+        <header class="bg-gray-900 p-20 w-full">  
                 <!-- Logo -->
                 <div class="flex items-center justify-center ">
                     <Link :href="`/index`">
@@ -33,15 +33,15 @@
                     <!-- CAROUSEL OF PRODUCTS: TO DO-->
 
                 </div>
-            </div>            
+            </header>            
 
-            <div class="mb-auto h-10">
+            <main class="flex-grow mb-auto">
                 <slot></slot>
-            </div>
+            </main>
 
-            <footer class="h-20 w-auto bg-gray-900 px-4 sm:px-6 lg:px-9 mt-30 p-5 flex justify-center items-center text-white ">
-                All rights reserved to @Museek2024 
-            </footer>        
+            <footer class="h-20 w-full bg-gray-900 px-4 sm:px-6 lg:px-9 p-5 flex justify-center items-center text-white">
+                All rights reserved to @Museek2024
+            </footer>    
     </div>
 </template>
 
@@ -49,40 +49,19 @@
 import {
     Link, usePage,
 } from '@inertiajs/vue3';
-import { ref, onMounted } from 'vue';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { defineProps } from 'vue';
 import axios from 'axios';
 
 const { props } = usePage();
 const auth = props.auth;
+const categories = props.categories;
 
 const logout = () => {
     axios.post('/logout').then(response => {
         window.location = '/index';
     })
-}
-defineProps({
-    categories: Object,
-})
-
-
-const categories = ref([]);
-
-// Método para carregar as categorias do backend
-const loadCategories = async () => {
-    try {
-        const response = await axios.get('/categories'); // Certifique-se de importar axios ou usar outra forma de fazer a requisição HTTP
-        categories.value = response.data;
-    } catch (error) {
-        console.error('Erro ao carregar categorias:', error);
-    }
 };
-
-onMounted(() => {
-    loadCategories();
-});
 
 
 </script>
