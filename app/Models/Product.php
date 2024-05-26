@@ -13,7 +13,6 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'image',
         'price',
         'description',
         'brand',
@@ -27,10 +26,10 @@ class Product extends Model
     }
 
     public function order():BelongsTo{
-        return $this->belongsTo(Order::class, 'order');
+        return $this->belongsTo(Order::class, 'product');
     }
    
     public function images():HasMany{
-       return $this->hasMany(Product::class, 'image');
+       return $this->hasMany(Image::class, 'image');
    }
 }

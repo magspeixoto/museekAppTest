@@ -15,7 +15,7 @@
                     </div>
                     <div class="items-center col-span-2 justify-center mt-5 ">
                         <label class="block text-sm font-medium leading-6 text-gray-900">Product image </label>
-                        <input v-model="form.image" type="text"
+                        <input @change="uploadImage" type="file"
                             class="input w-96 border border-gray-600 rounded items-center" />
                         <div v-if="form.errors.image" class="text-red-500">
                             {{ form.errors.image }}
@@ -90,12 +90,21 @@ import { ref } from 'vue'
     brand: '',
   })
 
-  const categories = ref([])
-  const brands = ref([])
+  const props = defineProps({
+  categories: Array,
+  brands: Array,
+});
 
   const submit = () => {
     form.post('/products')
   }
+  const uploadImage = (event) => {
+  const file = event.target.files[0];
+  const formData = new FormData();
+  formData.append('image', file);
+  
+  Inertia.post('/upload', formData);
+}
 
   // Exporte todas as variáveis e funções necessárias
   

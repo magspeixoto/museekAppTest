@@ -13,10 +13,11 @@ class Order extends Model
 
     protected $fillable = [
         'contact_name',
-        'contact_email'
+        'contact_email',
+        'product',
     ];
 
     public function orders():HasMany{
-        return $this->hasMany(Product::class, 'order');
+        return $this->hasMany(Product::class, 'product');
     }
 }
