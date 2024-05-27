@@ -21,7 +21,7 @@
                             </div>
                         </template>
                         <NavLink v-if="auth.user" class="ml-3 text-white" :href="`/myaccount`">
-                            <div class="justify-end">A minha conta</div>
+                            <div class="justify-end">Gestão</div>
                         </NavLink>
                         <NavLink v-if="!auth.user" class="ml-3 text-white" :href="`/login`">
                             <div class="justify-end">Login</div>

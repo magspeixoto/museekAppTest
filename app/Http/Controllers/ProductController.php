@@ -22,11 +22,11 @@ class ProductController extends Controller
             ]
         );
     }
-    public function index2($categoryId)
+    /* public function index2($categoryId)
     {
         // Fetch the category by its ID
         $category = Category::find($categoryId);
-        $products = Product::with('mainImage')->where('category', $categoryId)->paginate(4)->map(function ($product) {
+        $products = Product::with('mainImage')->where('category', $categoryId)->get() ->map(function ($product) {
             return [
                 'id' => $product->id,
                 'name' => $product->name,
@@ -37,10 +37,41 @@ class ProductController extends Controller
                 'image' => $product->main_image_url, // Include the image URL
             ];
         });
-
+        dd($products);
+        
         return Inertia::render('Index/Index2', [
             'category' => $category,
             'products' => $products,
+        ]);
+    } */
+
+    public function index2($categoryId)
+    {
+        // Buscar a categoria pelo seu ID
+        $category = Category::find($categoryId);
+
+        // Paginar os produtos e incluir a imagem principal
+        $products = Product::with('mainImage')->where('category', $categoryId)->paginate(4);
+
+        // Transformar os produtos
+        $transformedProducts = $products->items();
+
+        foreach ($transformedProducts as &$product) {
+            $product = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'description' => $product->description,
+                'category' => $product->category,
+                'brand' => $product->brand,
+                'image' => $product->main_image_url, // Incluir a URL da imagem principal
+            ];
+        }
+        /* dd($products); */
+        // Retornar a view com a categoria e os produtos transformados
+        return Inertia::render('Index/Index2', [
+            'category' => $category,
+            'products' => $transformedProducts,
         ]);
     }
 
