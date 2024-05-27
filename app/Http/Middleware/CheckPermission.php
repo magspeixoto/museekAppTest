@@ -15,7 +15,7 @@ class CheckPermission
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next, ...$permissions)
-    {
+    {        
         // Verifica se o usuário está autenticado
         if (!Auth::check()) {
             return redirect()->route('login'); // Redireciona para a página de login se não estiver autenticado

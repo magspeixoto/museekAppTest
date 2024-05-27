@@ -15,29 +15,29 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run(): void
     {
         // Criar roles
-$adminRole = Role::create(['name' => 'admin']);
-$editorRole = Role::create(['name' => 'editor']);
+        $adminRole = Role::create(['name' => 'admin']);
+        $editorRole = Role::create(['name' => 'editor']);
 
-// Criar permissões
-$manageUsersPermission = Permission::create(['name' => 'manage users']);
-$manageCategoriesPermission = Permission::create(['name' => 'manage categories']);
-$manageProductsPermission = Permission::create(['name' => 'manage products']);
-$manageBrandsPermission = Permission::create(['name' => 'manage brands']);
+        // Criar permissões
+        $manageUsersPermission = Permission::create(['name' => 'manage users']);
+        $manageCategoriesPermission = Permission::create(['name' => 'manage categories']);
+        $manageProductsPermission = Permission::create(['name' => 'manage products']);
+        $manageBrandsPermission = Permission::create(['name' => 'manage brands']);
 
-// Atribuir permissões aos roles
-$adminRole->givePermissionTo([
-    $manageUsersPermission,
-    $manageCategoriesPermission,
-    $manageProductsPermission,
-]);
-$adminRole->revokePermissionTo([
-    $manageBrandsPermission,
-]);
+        // Atribuir permissões aos roles
+        $adminRole->givePermissionTo([
+            $manageUsersPermission,
+            $manageCategoriesPermission,
+            $manageProductsPermission,
+        ]);
+        $adminRole->revokePermissionTo([
+            $manageBrandsPermission,
+        ]);
 
-$editorRole->givePermissionTo([
-    $manageCategoriesPermission,
-    $manageProductsPermission,
-    $manageBrandsPermission,
-]);
+        $editorRole->givePermissionTo([
+            $manageCategoriesPermission,
+            $manageProductsPermission,
+            $manageBrandsPermission,
+        ]);
     }
 }

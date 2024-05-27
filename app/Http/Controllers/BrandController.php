@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Brand;
 
 use Illuminate\Http\Request;
@@ -12,17 +13,17 @@ class BrandController extends Controller
         return inertia(
             'Brands/Index',
             [
-                'brands' => Brand::all(),
+                'brands' => Brand::paginate(5),
             ]
         );
     }
-    
+
     public function show(Brand $brand)
     {
         return inertia(
             'Brands/Show',
             [
-                'brand'=> $brand
+                'brand' => $brand
             ]
         );
     }
@@ -33,21 +34,21 @@ class BrandController extends Controller
         );
     }
     public function store(Request $request)
-{
-    Brand::create(
-        $request->validate([
-            'name' => 'required',
-        ])
+    {
+        Brand::create(
+            $request->validate([
+                'name' => 'required',
+            ])
         );
 
         // Optionally, you can return a response or redirect
         return redirect()->route('brand.index')->with('success', 'Brand was created!');
-}
+    }
 
     public function edit(Brand $brand)
     {
-        return inertia('Brands/Edit',[
-            'brand'=> $brand
+        return inertia('Brands/Edit', [
+            'brand' => $brand
         ]);
     }
 
@@ -55,7 +56,8 @@ class BrandController extends Controller
     {
         $brand->update(
             $request->validate([
-                'name' => 'required|min:0|max:200'])
+                'name' => 'required|min:0|max:200'
+            ])
         );
 
         return redirect()->route('brand.index')

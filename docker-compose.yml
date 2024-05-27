@@ -10,13 +10,23 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
+    networks:
+      - museekapp_default
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+    networks:
+      - museekapp_default
   mailhog:
     image: mailhog/mailhog
-    ports: 
+    ports:
       - 1025:1025
       - 8025:8025
+    networks:
+      - museekapp_default
+
+networks:
+  museekapp_default:
+    external: true

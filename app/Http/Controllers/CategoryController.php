@@ -13,17 +13,17 @@ class CategoryController extends Controller
         return inertia(
             'Categories/Index',
             [
-                'categories' => Category::all(),
+                'categories' => Category::paginate(5),
             ]
         );
     }
-    
+
     public function show(Category $category)
     {
         return inertia(
             'Categories/Show',
             [
-                'category'=> $category
+                'category' => $category
             ]
         );
     }
@@ -34,24 +34,24 @@ class CategoryController extends Controller
         );
     }
     public function store(Request $request)
-{
-    Category::create(
-        $request->validate([
-            'name' => 'required',
-        ])
+    {
+        Category::create(
+            $request->validate([
+                'name' => 'required',
+            ])
         );
 
         // Invalidate the cache
         Cache::forget('categories.all');
 
         // Optionally, you can return a response or redirect
-        return redirect()->route('category.index')->with('success', 'Category was created!');
-}
+        return redirect()->route('category.index')->with('success', 'Categoria criada com sucesso!');
+    }
 
     public function edit(Category $category)
     {
-        return inertia('Categories/Edit',[
-            'category'=> $category
+        return inertia('Categories/Edit', [
+            'category' => $category
         ]);
     }
 
@@ -59,7 +59,8 @@ class CategoryController extends Controller
     {
         $category->update(
             $request->validate([
-                'name' => 'required|min:0|max:200'])
+                'name' => 'required|min:0|max:200'
+            ])
         );
 
         // Invalidate the cache
@@ -69,14 +70,22 @@ class CategoryController extends Controller
             ->with('success', 'Category was updated!');
     }
 
-    public function destroy(Category $category)
+    public function destroy(Request $request, Category $category)
     {
+        $currentPage = $request->input('page', 1);
         $category->delete();
 
         // Invalidate the cache
         Cache::forget('categories.all');
 
-        return redirect()->route('category.index')
-            ->with('success', 'Category was deleted!');
+        // Check if the current page is empty after deletion
+        $categories = Category::paginate(10, ['*'], 'page', $currentPage);
+        if ($categories->isEmpty() && $currentPage > 1) {
+            $currentPage--;
+        }
+
+        // Redirect to the same (or previous) page with a flash message
+        return redirect()->route('category.index', ['page' => $currentPage])
+            ->with('success', 'Categoria eliminada com sucesso!');
     }
 }

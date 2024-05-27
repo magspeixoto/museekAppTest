@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col min-h-screen justify-between">
-        <header class="bg-gray-900 p-20 w-full">  
+        <header class="bg-gray-900 p-10 w-full">  
                 <!-- Logo -->
                 <div class="flex items-center justify-center ">
                     <Link :href="`/index`">

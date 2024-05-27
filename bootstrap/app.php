@@ -13,12 +13,15 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
-            \App\Http\Middleware\HandleInertiaRequests::class,
-            \App\Http\Middleware\NavigationMiddleware::class,
-            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+            \App\Http\Middleware\HandleInertiaRequests::class,            
+            \App\Http\Middleware\NavigationMiddleware::class,            
+            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class, 
+                       
+        ]);  
+        
+        $middleware->alias([
+            'check.permission' => \App\Http\Middleware\CheckPermission::class
         ]);
-
-        //
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
