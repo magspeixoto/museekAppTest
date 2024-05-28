@@ -26,7 +26,7 @@ class NavigationMiddleware
         });
 
         // Share the categories with all Inertia responses
-        Inertia::share('categories', $categories);
+        Inertia::share('cachedCategories', $categories);
 
         return $next($request);
     }

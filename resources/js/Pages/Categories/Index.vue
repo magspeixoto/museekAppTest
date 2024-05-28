@@ -35,7 +35,7 @@
                   <Link class="text-blue-600 hover:text-blue-900" :href="`/manage/category/edit/${category.id}`" title="Edit">
                   <i class="fas fa-edit"></i>
                   </Link>
-                  <Link class="text-red-600 hover:text-red-900" :href="`/manage/category/delete/${category.id}?page=${categories.current_page}`" method="DELETE"
+                  <Link class="text-red-600 hover:text-red-900" :href="`/category/delete/${category.id}?page=${categories.current_page}`" method="DELETE"
                     title="Delete">
                   <i class="fas fa-trash-alt"></i>
                   </Link>

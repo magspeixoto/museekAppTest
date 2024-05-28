@@ -3,7 +3,7 @@
         <header class="bg-gray-900 p-10 w-full">
             <!-- Logo -->
             <div class="flex items-center justify-center ">
-                <Link :href="`/index`">
+                <Link :href="`/`">
                 <ApplicationMark class="block h-9 w-auto" />
                 </Link>
                 <div class="bg-green text-white" v-if="flashSuccess">{{ flashSuccess }}</div>
@@ -19,7 +19,7 @@
                             <NavLink class="ml-3 text-white" :href="`/category/${category.id}/products`">{{
                                 category.name }}</NavLink>
                         </div>
-                    </template>                    
+                    </template>
                     <NavLink v-if="!auth.user" class="ml-3 text-white" :href="`/login`">
                         <div class="justify-end">Login</div>
                     </NavLink>
@@ -41,15 +41,40 @@
                             <Link :href="`/my-account`" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             Minha conta
                             </Link>
-                            <Link :href="`/manage`" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                            Gestão
-                            </Link>
+                            <div>
+                                <Link class="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
+                                    :href="`/manage`">
+                                Gestão
+                                </Link>
+                                <div class="ml-4">
+                                    <ul class="list-none list-inside">
+                                        <li>
+                                            <Link :href="`/manage/category`"
+                                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Gerir categorias
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link :href="`/manage/brand`"
+                                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Gerir marcas
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link :href="`/manage/product`"
+                                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Gerir produtos
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <button @click="logout" class="block w-full text-left px-4 py-2 text-red-700 hover:bg-gray-100">
                                 Terminar sessão
                             </button>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
         </header>
 
@@ -74,7 +99,7 @@ import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 const { props } = usePage();
 const auth = props.auth;
-const categories = props.categories;
+let categories = props.cachedCategories;
 
 
 const dropdownOpen = ref(false)
@@ -109,5 +134,8 @@ watch(() => page.props.auth.user, (newValue) => {
     auth.user = newValue;
 });
 
-
+// list for category updates
+watch(() => page.props.cachedCategories, (newValue) => {
+    categories = newValue;
+});
 </script>
