@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    
+
     public function index()
     {
         return inertia(
@@ -20,13 +20,13 @@ class UserController extends Controller
             ]
         );
     }
-    
+
     public function show(User $user)
     {
         return inertia(
             'Users/Show',
             [
-                'user'=> $user
+                'user' => $user
             ]
         );
     }
@@ -37,26 +37,24 @@ class UserController extends Controller
         );
     }
     public function store(Request $request)
-{
-    User::create(
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password'=> 'required|min:1|max:20000',
-            'role' => 'required|in:admin,editor',
-        ])
-        
-        /* event(new Registered($user)); */
+    {
+        User::create(
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required|min:1|max:20000',
+                'role' => 'required|in:admin,editor',
+            ])
         );
 
         // Optionally, you can return a response or redirect
         return redirect()->route('user.index')->with('success', 'user was created!');
-}
+    }
 
     public function edit(User $user)
     {
-        return inertia('Users/Edit',[
-            'user'=> $user
+        return inertia('Users/Edit', [
+            'user' => $user
         ]);
     }
 
@@ -65,10 +63,10 @@ class UserController extends Controller
         $user->update(
             $request->validate([
                 'name' => 'required',
-            'email' => 'required',
-            'password'=> 'required|min:1|max:20000',
-            
-                ])
+                'email' => 'required',
+                'password' => 'required|min:1|max:20000',
+
+            ])
         );
 
         return redirect()->route('user.index')

@@ -124,7 +124,7 @@ onUnmounted(() => {
 
 const logout = () => {
     axios.post('/logout').then(response => {
-        window.location = '/index';
+        window.location = '/';
     })
 };
 

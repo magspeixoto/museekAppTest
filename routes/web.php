@@ -1,24 +1,24 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ManageController;
-use App\Http\Controllers\PasswordCreationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
-use App\Mail\ContactedMessage;
 use App\Models\Category;
-use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Jetstream\Http\Controllers\Inertia\UserProfileController;
 use Illuminate\Support\Facades\Cache;
+use Laravel\Fortify\Features;
+use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
+use Laravel\Fortify\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\RegisterController;
 
 Route::get('/', function () {
     $cacheKey = 'categories.all';
@@ -46,12 +46,8 @@ Route::middleware([
 
 Route::post('/contact', [ContactController::class, 'submit']);
 
-/* Route::get('/test', function(){
-    return new ContactedMessage('test@test.com', 'Margarida Teste');
-}); */
 
 //EMAIL VERIFICATION
-
 Route::get('/email/verify', function () {
     return Inertia::render('Auth/VerifyEmail');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.notice');
@@ -59,31 +55,42 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return redirect('/myaccount');
+    return redirect('/');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::post('/email/verification-notification', function (Request $request) {
+Route::post('/email/verification-notification', function (Request $request) {  
     $request->user()->sendEmailVerificationNotification();
 
     return back()->with('status', 'verification-link-sent');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('/admin/password/reset', [AdminController::class, 'showResetForm'])
-    ->name('admin.password.reset');
-Route::post('/admin/password/reset', [AdminController::class, 'sendResetLink'])
-    ->name('admin.password.email');
+// Registration Route
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-Route::get('/password/create/{user}', [PasswordCreationController::class, 'create'])
-    ->name('password.create')
-    ->middleware('signed');
+Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
+    $enableViews = config('fortify.views', true);
 
-Route::post('/password/update/{user}', [PasswordCreationController::class, 'update'])
-    ->name('password.update');
-    
-Route::get('/admin/password/reset', [AdminController::class, 'showResetForm'])
-->name('admin.password.reset');
-Route::post('/admin/password/reset', [AdminController::class, 'sendResetLink'])
-->name('admin.password.email');
+    // Password Reset...
+    if (Features::enabled(Features::resetPasswords())) {
+        if ($enableViews) {
+            Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
+                ->middleware(['guest:' . config('fortify.guard')])
+                ->name('password.request');
+
+            Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+                ->middleware(['guest:' . config('fortify.guard')])
+                ->name('password.reset');
+        }
+
+        Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+            ->middleware(['guest:' . config('fortify.guard')])
+            ->name('password.email');
+
+        Route::post('/reset-password', [NewPasswordController::class, 'store'])
+            ->middleware(['guest:' . config('fortify.guard')])
+            ->name('password.update');
+    }
+});
 
 Route::get('/manage', [ManageController::class, 'index'])->middleware('auth');
 

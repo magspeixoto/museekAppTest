@@ -34,8 +34,7 @@ const page = usePage()
 const user = computed(() => page.props.user)
 
 const hasPermission = (permission) => {
-  const currentUser = user.value;
-
+  const currentUser = user.value;  
   if (currentUser && currentUser.permissions) {    
     if (currentUser.roles && currentUser.roles.includes('admin')) {
       return true;
