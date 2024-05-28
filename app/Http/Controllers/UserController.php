@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
     public function index()
     {
         return inertia(
@@ -29,27 +28,7 @@ class UserController extends Controller
                 'user' => $user
             ]
         );
-    }
-    public function create()
-    {
-        return inertia(
-            'Users/Create',
-        );
-    }
-    public function store(Request $request)
-    {
-        User::create(
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required|min:1|max:20000',
-                'role' => 'required|in:admin,editor',
-            ])
-        );
-
-        // Optionally, you can return a response or redirect
-        return redirect()->route('user.index')->with('success', 'user was created!');
-    }
+    }        
 
     public function edit(User $user)
     {

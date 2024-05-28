@@ -31,6 +31,6 @@ class ContactController extends Controller
         // Send email to admin
         Mail::to(config('mail.from.address'))->send(new AdminNotification($user, $product));
 
-        /* return response()->json(['message' => 'Contact successful, emails sent.']) */;
+        return redirect()->back()->with('contacted', 'Fomos contactados, obrigado pela preferência!');
     }
 }

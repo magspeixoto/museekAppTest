@@ -48,22 +48,28 @@
                                 </Link>
                                 <div class="ml-4">
                                     <ul class="list-none list-inside">
-                                        <li>
+                                        <li v-if="hasPermission('manage categories')">
                                             <Link :href="`/manage/category`"
                                                 class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             Gerir categorias
                                             </Link>
                                         </li>
-                                        <li>
+                                        <li v-if="hasPermission('manage brands')">
                                             <Link :href="`/manage/brand`"
                                                 class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             Gerir marcas
                                             </Link>
                                         </li>
-                                        <li>
+                                        <li v-if="hasPermission('manage products')">
                                             <Link :href="`/manage/product`"
                                                 class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             Gerir produtos
+                                            </Link>
+                                        </li>
+                                        <li v-if="hasPermission('manage users')">
+                                            <Link :href="`/manage/users`"
+                                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Gerir utilizadores
                                             </Link>
                                         </li>
                                     </ul>
@@ -99,10 +105,21 @@ import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 const { props } = usePage();
 const auth = props.auth;
+const user = props.user;
+
+// only using let because this can change
+// when updates a category it will need to be re-rendered in the UI again
 let categories = props.cachedCategories;
 
-
 const dropdownOpen = ref(false)
+
+const hasPermission = (permission) => {
+    const currentUser = user;
+    if (currentUser && currentUser.permissions) {
+        return currentUser.permissions.includes(permission);
+    }
+    return false;
+}
 
 const toggleDropdown = () => {
     dropdownOpen.value = !dropdownOpen.value

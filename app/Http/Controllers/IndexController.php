@@ -39,15 +39,7 @@ class IndexController extends Controller
         return Inertia::render(
             'Index/Show',
             [
-                'product' => [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'price' => $product->price,
-                    'description' => $product->description,                   
-                    'image' => $product->main_image_url,
-                    'category' => $product->category,
-                    'brand' => $product->brand,
-                ]
+                'product' => $product
             ]
         );
     }

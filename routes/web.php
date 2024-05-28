@@ -129,8 +129,7 @@ Route::group(['middleware' => 'check.permission:manage categories'], function ()
     Route::delete('/category/delete/{category}', [CategoryController::class, 'destroy'])->name('category.destroy')->middleware('auth');    
 });
 
-Route::group(['middleware' => 'check.permission:manage products'], function () {   
-    //CRUD PRODUCTS
+Route::group(['middleware' => 'check.permission:manage products'], function () {       
     // Pages
     Route::get('/manage/product', [ProductController::class, 'index'])->name('product.index')->middleware('auth');
     Route::get('/manage/product/create', [ProductController::class, 'create'])->name('product.create')->middleware('auth');
@@ -145,19 +144,18 @@ Route::group(['middleware' => 'check.permission:manage products'], function () {
 });
 
 
-
 Route::post('/upload', [ImageController::class, 'upload'])->name('upload');
 
 Route::group(['middleware' => 'check.permission:manage users'], function () {
-    // Rotas de CRUD de usuários aqui...
-    //CRUD USERS
-    Route::get('/user/index', [UserController::class, 'index'])->name('user.index')->middleware('auth');
-    Route::get('/user/create', [UserController::class, 'create'])->name('user.create')->middleware('auth');
-    Route::post('/user', [UserController::class, 'store'])->middleware('auth');
-    Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
+    // Pages    
+    Route::get('/manage/users', [UserController::class, 'index'])->name('user.index')->middleware('auth');
+    Route::get('/manage/user/create', [UserController::class, 'create'])->name('user.create')->middleware('auth');    
+    Route::get('/manage/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
+    Route::get('/manage/user/{user}', [UserController::class, 'show'])->name('user.show')->middleware('auth');
+
+    // API
     Route::put('/user/update/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
     Route::delete('/user/delete/{user}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('auth');
-    Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show')->middleware('auth');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {

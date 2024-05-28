@@ -22,21 +22,19 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => $this->passwordRules(),
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],            
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
-            'password' => '',
+            'password' => $input['email'],
         ]);
 
-        // Send password reset email
-        Password::broker()->sendResetLink(['email' => $input['email']]);
-
-        $user->assignRole('admin');
+        // default should be Editor
+        $user->assignRole('editor');                        
+        
         return $user;
     }
 }
