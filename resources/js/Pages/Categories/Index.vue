@@ -3,7 +3,7 @@
     <div class="mt-10 mx-60">
       <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold text-gray-900">Categorias</h1>
-        <Link class="bg-gray-900 text-white border p-3 flex items-center space-x-2" :href="('/category/create')">
+        <Link class="bg-gray-900 text-white border p-3 flex items-center space-x-2" :href="('/manage/category/create')">
         <i class="fas fa-plus"></i>
         <span>Adicionar</span>
         </Link>
@@ -28,14 +28,14 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">
                 <div class="flex justify-end space-x-4">
-                  <Link class="text-indigo-600 hover:text-indigo-900" :href="`/category/${category.id}`"
+                  <Link class="text-indigo-600 hover:text-indigo-900" :href="`/manage/category/${category.id}`"
                     title="Read more">
                   <i class="fas fa-eye"></i>
                   </Link>
-                  <Link class="text-blue-600 hover:text-blue-900" :href="`/category/edit/${category.id}`" title="Edit">
+                  <Link class="text-blue-600 hover:text-blue-900" :href="`/manage/category/edit/${category.id}`" title="Edit">
                   <i class="fas fa-edit"></i>
                   </Link>
-                  <Link class="text-red-600 hover:text-red-900" :href="`/category/delete/${category.id}?page=${categories.current_page}`" method="DELETE"
+                  <Link class="text-red-600 hover:text-red-900" :href="`/manage/category/delete/${category.id}?page=${categories.current_page}`" method="DELETE"
                     title="Delete">
                   <i class="fas fa-trash-alt"></i>
                   </Link>

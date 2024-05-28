@@ -9,12 +9,12 @@ use App\Models\Brand;
 use App\Models\User;
 
 
-class MyAccountController extends Controller
+class ManageController extends Controller
 {
     public function index()
     {
         return inertia(
-            'UserAccount/Index',
+            'Manage/Index',
             [
                 
             ]

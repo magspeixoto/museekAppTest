@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('brand', 'category', 'mainImage')->paginate(10);
+        $products = Product::with('brand', 'category', 'mainImage')->paginate(5);
 
         return inertia(
             'Products/Index',
@@ -92,7 +92,7 @@ class ProductController extends Controller
         }
 
         // Optionally, you can return a response or redirect
-        return redirect()->route('product.index')->with('success', 'Product was created!');
+        return redirect()->route('product.index')->with('success', 'Produto criado com sucesso!');
     }
 
     public function edit(Product $product)
@@ -145,7 +145,7 @@ class ProductController extends Controller
             );
         }
 
-        return redirect()->route('product.index')->with('success', 'Product was updated!');
+        return redirect()->route('product.index')->with('success', 'Produto editado com sucesso!');
     }
 
     public function uploadImage(Request $request, Product $product)
@@ -173,15 +173,20 @@ class ProductController extends Controller
             ]
         );
 
-        return redirect()->route('product.index')->with('success', 'Image was updated!');
+        return redirect()->route('product.index')->with('success', 'Imagem alterada!');
     }
 
     public function destroy(Product $product)
     {
+        // Delete all associated images
+        foreach ($product->images as $image) {
+            Storage::disk('public')->delete($image->imageURL);
+            $image->delete();
+        }
+
         $product->delete();
 
         return redirect()->route('product.index')
-            ->with('success', 'product was deleted!');
+            ->with('success', 'Produto eliminado com sucesso!');
     }
-
 }

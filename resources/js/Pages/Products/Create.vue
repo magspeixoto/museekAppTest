@@ -2,26 +2,18 @@
     <AppLayout>
         <div class="flex justify-center">
             <div class="justify-center items-center col-span-2">
-                <Link class="p-5 bg-orange-300 rounded" :href="`/product/index`">Back</Link>
+                <Link class="p-5 bg-orange-300 rounded" :href="`/manage/product`">Voltar</Link>
                 <form @submit.prevent="form.post('/product')" class="flex-column justify-center items-center">
                     <div class="items-center col-span-2 justify-center mt-5">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900">Nome do produto</label>
                         <input v-model="form.name" type="text"
                             class="input w-96 border border-gray-600 rounded items-center" />
                         <div v-if="form.errors.name" class="text-red-500">
                             {{ form.errors.name }}
                         </div>
                     </div>
-                    <!-- <div class="items-center col-span-2 justify-center mt-5 ">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Product image </label>
-                        <input @change="uploadImage" type="file"
-                            class="input w-96 border border-gray-600 rounded items-center" />
-                        <div v-if="form.errors.image" class="text-red-500">
-                            {{ form.errors.image }}
-                        </div>
-                    </div> -->
                     <div class="items-center col-span-2 justify-center mt-5">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Image</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900">Imagem do produto</label>
                         <input @change="onFileChange" type="file"
                             class="input w-96 border border-gray-600 rounded items-center" />
                         <div v-if="imagePreview" class="mt-3">
@@ -30,8 +22,8 @@
                         <div v-if="form.errors.image" class="text-red-500">{{ form.errors.image }}</div>
                     </div>
                     <div class="items-center col-span-2 justify-center mt-5 ">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Product price </label>
-                        <input v-model="form.price" type="text"
+                        <label class="block text-sm font-medium leading-6 text-gray-900">Preço</label>
+                        <input v-model="form.price" type="number"
                             class="input w-96 border border-gray-600 rounded items-center" />
                         <div v-if="form.errors.price" class="text-red-500">
                             {{ form.errors.price }}
@@ -39,7 +31,7 @@
                     </div>
 
                     <div class="items-center col-span-2 justify-center mt-5 ">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Product description </label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900">Descrição </label>
                         <input v-model="form.description" type="text"
                             class="input w-96 border border-gray-600 rounded items-center" />
                         <div v-if="form.errors.description" class="text-red-500">
@@ -47,8 +39,7 @@
                         </div>
                     </div>
                     <div class="items-center col-span-2 justify-center mt-5 ">
-                        <label class="block text-sm font-medium leading-6 text-gray-900" for="category">Choose
-                            Category</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900" for="category">Categoria</label>
                         <select class="input w-96 border border-gray-600 rounded" id="category" v-model="form.category">
                             <option v-for="category in categories" :key="category.id" :value="category.id">
                                 {{ category.name }}
@@ -74,8 +65,7 @@
                         </select>
                     </div>
                     <div class="flex justify-center">
-                        <button type="submit" class="btn-primary px-5 py-3 mt-5 w-96 bg-orange-300 justify-center">Create
-                            product</button>
+                        <button type="submit" class="btn-primary px-5 py-3 mt-5 w-96 bg-orange-300 justify-center">Criar produto</button>
                     </div>
                 </form>
             </div>
@@ -104,16 +94,16 @@ const props = defineProps({
 
 const imagePreview = ref(null);
 
-const onFileChange = (event) => {    
+const onFileChange = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
         form.image = file;
         console.log('File selected:', file);
         // Create a preview URL for the selected image
         const reader = new FileReader();
-        reader.onload = (e) => {            
+        reader.onload = (e) => {
             imagePreview.value = e.target.result;
-        };        
+        };
         reader.readAsDataURL(file);
     } else {
         form.image = null;

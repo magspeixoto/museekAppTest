@@ -2,17 +2,17 @@
     <AppLayout>
         <div class="flex justify-center">
             <div class="block justify-center items-center mt-20 mb-0 col-span-2">
-                <Link class="p-5 bg-orange-300 rounded" :href="`/product/index`">Back</Link>
+                <Link class="p-5 bg-orange-300 rounded" :href="`/manage/product`">Back</Link>
                 <form @submit.prevent="update" class="flex-column justify-center items-center">
                     <div class="items-center col-span-2 justify-center mt-5">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900">Nome do produto</label>
                         <input v-model="form.name" type="text"
                             class="input w-96 border border-gray-600 rounded items-center" />
                         <div v-if="form.errors.name" class="input-error">{{ form.errors.name }}</div>
                     </div>
 
                     <div class="items-center col-span-2 justify-center mt-5">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Product Image</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900">Imagem do produto</label>
                         <div v-if="imagePreview">
                             <img :src="imagePreview" alt="Product Image" class="w-48 h-48 object-cover mb-3" />
                         </div>
@@ -22,22 +22,21 @@
                     </div>
 
                     <div class="items-center col-span-2 justify-center mt-5">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Product Price</label>
-                        <input v-model="form.price" type="text"
+                        <label class="block text-sm font-medium leading-6 text-gray-900">Preço</label>
+                        <input v-model="form.price" type="number"
                             class="input w-96 border border-gray-600 rounded items-center" />
                         <div v-if="form.errors.price" class="input-error">{{ form.errors.price }}</div>
                     </div>
 
                     <div class="items-center col-span-2 justify-center mt-5">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">Product Description</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900">Descrição</label>
                         <input v-model="form.description" type="text"
                             class="input w-96 border border-gray-600 rounded items-center" />
                         <div v-if="form.errors.description" class="input-error">{{ form.errors.description }}</div>
                     </div>
 
                     <div class="items-center col-span-2 justify-center mt-5">
-                        <label class="block text-sm font-medium leading-6 text-gray-900" for="category">Choose
-                            Category</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900" for="category">Categoria</label>
                         <select class="input w-96 border border-gray-600 rounded" id="category" v-model="form.category">
                             <option v-for="category in categories" :key="category.id" :value="category.id">
                                 {{ category.name }}
@@ -47,7 +46,7 @@
                     </div>
 
                     <div class="items-center col-span-2 justify-center mt-5">
-                        <label class="block text-sm font-medium leading-6 text-gray-900" for="brand">Choose Brand</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900" for="brand">Marca</label>
                         <select class="input w-96 border border-gray-600 rounded items-center" id="brand"
                             v-model="form.brand">
                             <option class="border border-gray-600 rounded" v-for="brand in brands" :key="brand.id"

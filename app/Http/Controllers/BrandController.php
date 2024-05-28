@@ -42,7 +42,7 @@ class BrandController extends Controller
         );
 
         // Optionally, you can return a response or redirect
-        return redirect()->route('brand.index')->with('success', 'Brand was created!');
+        return redirect()->route('brand.index')->with('success', 'Marca criada com sucesso!');
     }
 
     public function edit(Brand $brand)
@@ -61,7 +61,7 @@ class BrandController extends Controller
         );
 
         return redirect()->route('brand.index')
-            ->with('success', 'Brand was updated!');
+            ->with('success', 'Marca editada com sucesso!');
     }
 
     public function destroy(Brand $brand)
@@ -69,6 +69,6 @@ class BrandController extends Controller
         $brand->delete();
 
         return redirect()->route('brand.index')
-            ->with('success', 'Brand was deleted!');
+            ->with('success', 'Marca eliminada com sucesso!');
     }
 }

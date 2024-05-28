@@ -4,15 +4,15 @@
       <h1 class="text-3xl font-bold">Gestão</h1>
 
       <div class="flex my-20 gap-6 items-center">
-        <Link v-if="hasPermission('manage categories')" class="bg-gray-900 text-white p-5 flex items-center gap-2 hover:bg-gray-700 transition-colors duration-300" :href="'/category/index'">
+        <Link v-if="hasPermission('manage categories')" class="bg-gray-900 text-white p-5 flex items-center gap-2 hover:bg-gray-700 transition-colors duration-300" :href="'manage/category'">
           <i class="fas fa-th-list"></i>
           <span>Gerir categorias</span>
         </Link>
-        <Link v-if="hasPermission('manage brands')" class="bg-gray-900 text-white p-5 flex items-center gap-2 hover:bg-gray-700 transition-colors duration-300" :href="'/brand/index'">
+        <Link v-if="hasPermission('manage brands')" class="bg-gray-900 text-white p-5 flex items-center gap-2 hover:bg-gray-700 transition-colors duration-300" :href="'manage/brand'">
           <i class="fas fa-tags"></i>
           <span>Gerir marcas</span>
         </Link>
-        <Link v-if="hasPermission('manage products')" class="bg-gray-900 text-white p-5 flex items-center gap-2 hover:bg-gray-700 transition-colors duration-300" :href="'/product/index'">
+        <Link v-if="hasPermission('manage products')" class="bg-gray-900 text-white p-5 flex items-center gap-2 hover:bg-gray-700 transition-colors duration-300" :href="'/manage/product'">
           <i class="fas fa-boxes"></i>
           <span>Gerir produtos</span>
         </Link>

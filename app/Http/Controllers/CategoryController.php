@@ -67,7 +67,7 @@ class CategoryController extends Controller
         Cache::forget('categories.all');
 
         return redirect()->route('category.index')
-            ->with('success', 'Category was updated!');
+            ->with('success', 'Category editada com sucesso!');
     }
 
     public function destroy(Request $request, Category $category)
