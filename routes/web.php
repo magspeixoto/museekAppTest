@@ -46,7 +46,6 @@ Route::middleware([
 
 Route::post('/contact', [ContactController::class, 'submit']);
 
-
 //EMAIL VERIFICATION
 Route::get('/email/verify', function () {
     return Inertia::render('Auth/VerifyEmail');
@@ -99,65 +98,73 @@ Route::get('/products/{product}', [IndexController::class, 'show']);
 
 Route::get('/category/{category}/products', [ProductController::class, 'index2'])->name('category.products');
 
-Route::group(['middleware' => 'check.permission:manage brands'], function () {
-    // Rotas de CRUD de marcas aqui...
+// PAGE ROUTES 
+
+Route::group(['middleware' => 'check.permission:manage brands', 'auth'], function () {
     //CRUD BRANDS
-    // Pages
-    Route::get('/manage/brand', [BrandController::class, 'index'])->name('brand.index')->middleware('auth');
-    Route::get('/manage/brand/create', [BrandController::class, 'create'])->name('brand.create')->middleware('auth');
-    Route::get('/manage/brand/edit/{brand}', [BrandController::class, 'edit'])->name('brand.edit')->middleware('auth');
-    Route::get('/manage/brand/{brand}', [BrandController::class, 'show'])->name('brand.show')->middleware('auth');
-    
-    // API
-    Route::post('/brand', [BrandController::class, 'store'])->middleware('auth');   
-    Route::put('/brand/update/{brand}', [BrandController::class, 'update'])->name('brand.update')->middleware('auth');
-    Route::delete('/brand/delete/{brand}', [BrandController::class, 'destroy'])->name('brand.destroy')->middleware('auth');    
+    Route::get('/manage/brand', [BrandController::class, 'index'])->name('brand.index');
+    Route::get('/manage/brand/create', [BrandController::class, 'create'])->name('brand.create');
+    Route::get('/manage/brand/edit/{brand}', [BrandController::class, 'edit'])->name('brand.edit');
+    Route::get('/manage/brand/{brand}', [BrandController::class, 'show'])->name('brand.show'); 
 });
 
-Route::group(['middleware' => 'check.permission:manage categories'], function () {    
+Route::group(['middleware' => 'check.permission:manage categories', 'auth'], function () {    
     //CRUD CATEGORIES
-
-    // Pages
-    Route::get('/manage/category', [CategoryController::class, 'index'])->name('category.index')->middleware('auth');
-    Route::get('/manage/category/create', [CategoryController::class, 'create'])->name('category.create')->middleware('auth');
-    Route::get('/manage/category/edit/{category}', [CategoryController::class, 'edit'])->name('category.edit')->middleware('auth');
-    Route::get('/manage/category/{category}', [CategoryController::class, 'show'])->name('category.show')->middleware('auth');
-
-    // API
-    Route::post('/category', [CategoryController::class, 'store'])->middleware('auth');    
-    Route::put('/category/update/{category}', [CategoryController::class, 'update'])->name('category.update')->middleware('auth');
-    Route::delete('/category/delete/{category}', [CategoryController::class, 'destroy'])->name('category.destroy')->middleware('auth');    
+    Route::get('/manage/category', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/manage/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::get('/manage/category/edit/{category}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::get('/manage/category/{category}', [CategoryController::class, 'show'])->name('category.show');
 });
 
-Route::group(['middleware' => 'check.permission:manage products'], function () {       
-    // Pages
-    Route::get('/manage/product', [ProductController::class, 'index'])->name('product.index')->middleware('auth');
-    Route::get('/manage/product/create', [ProductController::class, 'create'])->name('product.create')->middleware('auth');
-    Route::get('/manage/product/edit/{product}', [ProductController::class, 'edit'])->name('product.edit')->middleware('auth');
-    Route::get('/manage/product/{product}', [ProductController::class, 'show'])->name('product.show')->middleware('auth');
-    
-    // API
-    Route::post('/product', [ProductController::class, 'store'])->middleware('auth');    
-    Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('product.update')->middleware('auth');
-    Route::delete('/product/delete/{product}', [ProductController::class, 'destroy'])->name('product.destroy')->middleware('auth');    
-    Route::post('/product/upload-image/{product}', [ProductController::class, 'uploadImage'])->name('product.uploadImage')->middleware('auth');
+Route::group(['middleware' => 'check.permission:manage products', 'auth'], function () {      
+    //CRUD PRODUCTS
+    Route::get('/manage/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/manage/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/manage/product/edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::get('/manage/product/{product}', [ProductController::class, 'show'])->name('product.show');
 });
 
+Route::group(['middleware' => 'check.permission:manage users', 'auth'], function () {
+    //CRUD USERS
+    Route::get('/manage/users', [UserController::class, 'index'])->name('user.index');
+    Route::get('/manage/user/create', [UserController::class, 'create'])->name('user.create');    
+    Route::get('/manage/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+    Route::get('/manage/user/{user}', [UserController::class, 'show'])->name('user.show');
 
-Route::post('/upload', [ImageController::class, 'upload'])->name('upload');
-
-Route::group(['middleware' => 'check.permission:manage users'], function () {
-    // Pages    
-    Route::get('/manage/users', [UserController::class, 'index'])->name('user.index')->middleware('auth');
-    Route::get('/manage/user/create', [UserController::class, 'create'])->name('user.create')->middleware('auth');    
-    Route::get('/manage/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
-    Route::get('/manage/user/{user}', [UserController::class, 'show'])->name('user.show')->middleware('auth');
-
-    // API
-    Route::put('/user/update/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
-    Route::delete('/user/delete/{user}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('auth');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/my-account', [UserProfileController::class, 'show'])->name('profile.show');
+});
+
+//API ROUTES
+
+Route::group(['middleware' => 'check.permission:manage brands', 'auth'], function () {
+    //CRUD BRANDS
+    Route::post('/brand', [BrandController::class, 'store'])->middleware('auth');   
+    Route::put('/brand/update/{brand}', [BrandController::class, 'update'])->name('brand.update');
+    Route::delete('/brand/delete/{brand}', [BrandController::class, 'destroy'])->name('brand.destroy');    
+});
+
+Route::group(['middleware' => 'check.permission:manage categories', 'auth'], function () {    
+    //CRUD CATEGORIES
+    Route::post('/category', [CategoryController::class, 'store'])->middleware('auth');    
+    Route::put('/category/update/{category}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/category/delete/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');    
+});
+
+Route::group(['middleware' => 'check.permission:manage products', 'auth'], function () {       
+    // CRUD PRODUCTS
+    Route::post('/product', [ProductController::class, 'store'])->middleware('auth');    
+    Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product/delete/{product}', [ProductController::class, 'destroy'])->name('product.destroy');    
+    Route::post('/product/upload-image/{product}', [ProductController::class, 'uploadImage'])->name('product.uploadImage');
+});
+
+Route::post('/upload', [ImageController::class, 'upload'])->name('upload');
+
+Route::group(['middleware' => 'check.permission:manage users', 'auth'], function () {
+    //CRUD USERS
+    Route::put('/user/update/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/user/delete/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });

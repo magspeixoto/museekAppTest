@@ -11,6 +11,8 @@ class AdminUserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
+     //Creates Admin Seeders
     public function run(): void
     {
         $admin = User::create([

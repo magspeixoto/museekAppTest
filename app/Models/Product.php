@@ -18,30 +18,34 @@ class Product extends Model
         'brand',
         'category'
     ];
+
+    // 1 Product BelongsTo a category
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category');
     }
+    // 1 Product BelongsTo a brand
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class, 'brand');
     }
-
+    // 1 Product BelongsTo a order
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class, 'product');
     }
-
+    // 1 Product can have many images
     public function images(): HasMany
     {
         return $this->hasMany(Image::class);
     }
-
+    // 1 Product can have one image associated
     public function mainImage()
     {
         return $this->hasOne(Image::class)->where('main', true);
     }
-
+    /* function that gets the URL of the image. The function is a custom attribute accessor, 
+    which is used to dynamically retrieve the URL of the main image associated with the model. */
     public function getMainImageUrlAttribute()
     {
         $mainImage = $this->mainImage;

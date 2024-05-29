@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function index2($categoryId)
     {
         $category = Category::find($categoryId);
-        $products = Product::with('mainImage')->where('category', $categoryId)->paginate(5);
+        $products = Product::with('mainImage')->where('category', $categoryId)->paginate(4);
         return Inertia::render('Index/Index2', [
             'category' => $category,
             'products' => $products,

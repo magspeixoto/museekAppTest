@@ -44,7 +44,6 @@ class CategoryController extends Controller
         // Invalidate the cache
         Cache::forget('categories.all');
 
-        // Optionally, you can return a response or redirect
         return redirect()->route('category.index')->with('success', 'Categoria criada com sucesso!');
     }
 
@@ -78,7 +77,7 @@ class CategoryController extends Controller
         // Invalidate the cache
         Cache::forget('categories.all');
 
-        // Check if the current page is empty after deletion
+        // Check if the current page is empty after deletion - pagination
         $categories = Category::paginate(10, ['*'], 'page', $currentPage);
         if ($categories->isEmpty() && $currentPage > 1) {
             $currentPage--;

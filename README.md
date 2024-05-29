@@ -1,91 +1,69 @@
-Para correr o projeto seguir os seguintes passos:
+# MUSEEK PROJECT - HOW TO RUN
 
-1ºcriar ficheiro yml:
+# Requirements:
+- PHP 8.3.4 or higher
+- Node 18.0.0 or higher
+#### Do not forget to install docker desktop, composer, inertia, vue and laravel on your machine
+
+# Usage: 
+```
+git clone git@github.com:magspeixoto/museekApp.git
+cd museekApp
+cp .env.example .env
+composer install
+php artisan key:generate
+php artisan cache:clear && php artisan config:clear
+php artisan serve
+```
+- Create yaml file for the configurations
+- docker-compose.yml
+```
 version: "3.9"
 services:
-  mysql:
-    image: mariadb:10.8.3
-    # Uncomment below when on Mac M1
-    platform: linux/arm64/v8
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - 3306:3306
-    networks:
-      - museekapp_default
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-    networks:
-      - museekapp_default
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - 1025:1025
-      - 8025:8025
-    networks:
-      - museekapp_default
-
+**mysql**:
+- image: mariadb:10.8.3
+# Uncomment below when on Mac M1
+platform: linux/arm64/v8
+command: --default-authentication-plugin=mysql_native_password
+restart: always
+- environment:
+MYSQL_ROOT_PASSWORD: root
+- ports:
+- 3306:3306
+- networks:
+- museekapp_default
+**adminer**:
+- image: adminer
+restart: always
+- ports:
+- 8080:8080
+- networks:
+- museekapp_default
+**mailhog**:
+- image: mailhog/mailhog
+- ports:
+- 1025:1025
+- 8025:8025
 networks:
-  museekapp_default:
-    external: true
+- museekapp_default
+    
+- networks:
+museekapp_default:
+external: true
+```
 
-correr docker compose-up
+- Bring up adminer, mysql and mailhog services in Docker
+```docker-compose up```
 
-2ºFicheiro Env
-
-APP_NAME=Laravel
-APP_ENV=local
-APP_KEY=base64:Ym0/YwD2UPHwmgW1tR4ecyT8tswWNB29xJWgQFSwL18=
-APP_DEBUG=true
-APP_TIMEZONE=UTC
-APP_URL=http://localhost
-
-APP_LOCALE=en
-APP_FALLBACK_LOCALE=en
-APP_FAKER_LOCALE=en_US
-
-APP_MAINTENANCE_DRIVER=file
-APP_MAINTENANCE_STORE=database
-
-BCRYPT_ROUNDS=12
-
-LOG_CHANNEL=stack
-LOG_STACK=single
-LOG_DEPRECATIONS_CHANNEL=null
-LOG_LEVEL=debug
-
+- Create environment file in the root of the project - .env
+```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=museekDB
 DB_USERNAME=root
 DB_PASSWORD=root
-
-SESSION_DRIVER=database
-SESSION_LIFETIME=120
-SESSION_ENCRYPT=false
-SESSION_PATH=/
-SESSION_DOMAIN=null
-
-BROADCAST_CONNECTION=log
-FILESYSTEM_DISK=local
-QUEUE_CONNECTION=database
-
-CACHE_STORE=database
-CACHE_PREFIX=
-
-MEMCACHED_HOST=127.0.0.1
-
-REDIS_CLIENT=phpredis
-REDIS_HOST=127.0.0.1
-REDIS_PASSWORD=null
-REDIS_PORT=6379
-
+=======================
 MAIL_MAILER=smtp
 MAIL_HOST=localhost
 MAIL_PORT=1025
@@ -94,28 +72,18 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS="hello@example.com" 
 MAIL_FROM_NAME="${APP_NAME}"
+``` 
+- Update and install dependencies of the project
+```npm install```  
 
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_DEFAULT_REGION=us-east-1
-AWS_BUCKET=
-AWS_USE_PATH_STYLE_ENDPOINT=false
+- Run laravel PHP server
+```
+php artisan serve
+php artisan migrate
+```  
 
-VITE_APP_NAME="${APP_NAME}"
-
-3ºnpm install
-
-4º php artisan serve
-
-5ºnpm run dev
-
-
-
-
-
-
-
-
+- Run vite web server
+```npm run dev```
 
 
 

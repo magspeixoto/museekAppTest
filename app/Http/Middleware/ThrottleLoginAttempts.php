@@ -19,21 +19,21 @@ class ThrottleLoginAttempts
 
     public function handle(Request $request, Closure $next)
     {
-        $maxAttempts = 5; // Número máximo de tentativas permitidas
-        $decayMinutes = 1; // Tempo em minutos para desbloquear o IP após exceder as tentativas
+        $maxAttempts = 5; // Max attempts
+        $decayMinutes = 1; // Time to unlock the ip address
 
-        // Obter o IP do cliente
+        // Get client's Ip
         $ip = $request->ip();
 
-        // Verificar se o IP está bloqueado
+        // Check if it's locked
         if ($this->limiter->tooManyAttempts($this->getLoginAttemptsKey($ip), $maxAttempts)) {
             return response()->json(['message' => 'Tentativas de login excedidas. Tente novamente mais tarde.'], 429);
         }
 
-        // Se não estiver bloqueado, executar a próxima etapa do pipeline
+        // If not locked, next step
         $response = $next($request);
 
-        // Se o login falhar, registrar a tentativa
+        // If it fails, keep the attempt registered
         if ($response->getStatusCode() !== 302) {
             $this->limiter->hit($this->getLoginAttemptsKey($ip), $decayMinutes);
         }

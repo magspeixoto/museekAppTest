@@ -15,6 +15,8 @@ class Brand extends Model
         'name'
     ];
 
+    // 1 brand hasMany Products relationship
+
     public function brands():HasMany{
         return $this->hasMany(Product::class, 'brand');
     }

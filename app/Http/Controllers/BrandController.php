@@ -41,7 +41,6 @@ class BrandController extends Controller
             ])
         );
 
-        // Optionally, you can return a response or redirect
         return redirect()->route('brand.index')->with('success', 'Marca criada com sucesso!');
     }
 

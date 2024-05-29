@@ -11,11 +11,13 @@ class EditorUserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
+     //Creates Editors Seeders
     public function run(): void
     {
         $editor = User::create([
             'name' => 'Editor',
-            'email' => 'editor@example.com',
+            'email' => 'editor@museek.com',
             'password' => bcrypt('password'), // Use a senha que desejar
         ]);
 

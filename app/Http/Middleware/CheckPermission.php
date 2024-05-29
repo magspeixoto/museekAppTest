@@ -16,15 +16,15 @@ class CheckPermission
      */
     public function handle(Request $request, Closure $next, ...$permissions)
     {        
-        // Verifica se o usuário está autenticado
+        // Verifies if the user has logged in
         if (!Auth::check()) {
-            return redirect()->route('login'); // Redireciona para a página de login se não estiver autenticado
+            return redirect()->route('login'); // Redirects to login if not authenticated
         }
 
-        // Verifica se o usuário possui a permissão necessária
+        // Checks if the user has permission
         foreach ($permissions as $permission) {
             if (!Auth::user()->hasPermissionTo($permission)) {
-                abort(403); // Retorna um erro 403 (Proibido) se o usuário não tiver permissão
+                abort(403); // Return forbidden if the user has no permission
             }
         }
 

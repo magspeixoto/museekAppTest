@@ -17,6 +17,7 @@ class Order extends Model
         'product',
     ];
 
+    // 1 order hasMany Products relationship
     public function orders():HasMany{
         return $this->hasMany(Product::class, 'product');
     }

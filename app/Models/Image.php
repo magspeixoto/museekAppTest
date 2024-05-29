@@ -14,6 +14,7 @@ class Image extends Model
         'imageURL', 'original_name', 'main', 'product_id'
     ];
 
+    // 1 Image belongsTo a product
     public function product():BelongsTo{
         return $this->belongsTo(Product::class);
     }

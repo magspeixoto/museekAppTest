@@ -17,7 +17,7 @@ class NavigationMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
+    {   //put the categories(header) in cache so it doesnt have to load everytime
         $cacheKey = 'categories.all';
         $cacheDuration = 60; // Cache for 60 minutes
 
