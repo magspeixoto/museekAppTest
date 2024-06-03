@@ -7,7 +7,7 @@
 
 # Usage: 
 ```
-git clone git@github.com:magspeixoto/museekApp.git
+git clone git@github.com:magspeixoto/museekApptest.git
 cd museekApp
 cp .env.example .env
 composer install
@@ -76,10 +76,12 @@ MAIL_FROM_NAME="${APP_NAME}"
 - Update and install dependencies of the project
 ```npm install```  
 
-- Run laravel PHP server
+- Run laravel PHP server and Database
 ```
 php artisan serve
 php artisan migrate
+php artisan migrate:refresh --seed 
+
 ```  
 
 - Run vite web server
