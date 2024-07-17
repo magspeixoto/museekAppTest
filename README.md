@@ -3,6 +3,7 @@
 # Requirements:
 - PHP 8.3.4 or higher
 - Node 18.0.0 or higher
+- MySql 
 #### Do not forget to install docker desktop, composer, inertia, vue and laravel on your machine
 
 # Usage: 
@@ -20,39 +21,15 @@ php artisan serve
 ```
 version: "3.9"
 services:
-**mysql**:
-- image: mariadb:10.8.3
-# Uncomment below when on Mac M1
-platform: linux/arm64/v8
-command: --default-authentication-plugin=mysql_native_password
-restart: always
-- environment:
-MYSQL_ROOT_PASSWORD: root
-- ports:
-- 3306:3306
-- networks:
-- museekapp_default
-**adminer**:
-- image: adminer
-restart: always
-- ports:
-- 8080:8080
-- networks:
-- museekapp_default
 **mailhog**:
 - image: mailhog/mailhog
 - ports:
 - 1025:1025
 - 8025:8025
-networks:
-- museekapp_default
-    
-- networks:
-museekapp_default:
-external: true
+
 ```
 
-- Bring up adminer, mysql and mailhog services in Docker
+- Bring up mailhog services in Docker
 ```docker-compose up```
 
 - Create environment file in the root of the project - .env
