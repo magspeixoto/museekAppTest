@@ -22,14 +22,28 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        // First, seed roles and permissions
+        $this->call(RolesAndPermissionsSeeder::class);
+
+        // Then seed admin and editor users
+        $this->call(AdminUserSeeder::class);
+        $this->call(EditorUserSeeder::class);
+
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test1234@example.com',
+            'email' => 'test12345@example.com',
         ]);
+        // Create a category first
+        $category = Category::factory()->create();
+
+        // Create a brand
+        $brand = Brand::factory()->create();
         Product::factory()->create([
             'name' => 'Test Product',
             'price' => '1200',
             'description'=> 'hello world',
+            'category' => $category->id,
+            'brand' => $brand->id,
         ]);
     }
 }
